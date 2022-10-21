@@ -12,14 +12,13 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "users")
-public class User {
+@Table(name = "payment_methods")
+public class PaymentMethod {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer userId;
-    private String firstName;
-    private String middleName;
-    private String lastName;
-    private String email;
-
+    private Integer paymentMethodId;
+    private String name;
+    private String type;
+    private String cardNumber;
+    private String csv;
 }
