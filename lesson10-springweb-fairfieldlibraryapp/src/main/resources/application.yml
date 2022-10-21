@@ -1,0 +1,37 @@
+spring:
+  application:
+    name: day3
+
+  datasource:
+    password: 1
+    url: jdbc:postgresql://localhost:5432/SE_inclassDemo
+    username: postgres
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+
+    show-sql: true
+    defer-datasource-initialization: true
+
+  sql:
+    init:
+      mode: always
+
+
+  main:
+    allow-bean-definition-overriding: true
+
+#  web:
+#    resources:
+#      static-locations: classpath:/resources/images
+
+
+server:
+  port: 8081
+

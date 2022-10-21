@@ -1,4 +1,4 @@
-package edu.miu.cs425.onlineshoppingapp.model;
+package edu.miu.cs.cs425.fairfieldlibraryapp.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -6,20 +6,21 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
-@Getter
-@Setter
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "users")
-public class User {
+@Getter
+@Setter
+
+public class Author {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer userId;
+    private Integer authorId;
     private String firstName;
-    private String middleName;
     private String lastName;
     private String email;
-
+    @ManyToMany
+    private List<Book> books;
 }
