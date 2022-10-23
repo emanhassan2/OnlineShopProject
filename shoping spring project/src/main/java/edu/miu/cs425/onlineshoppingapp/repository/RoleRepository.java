@@ -1,4 +1,7 @@
 package edu.miu.cs425.onlineshoppingapp.repository;
 
-public interface RoleRepository {
+import edu.miu.cs425.onlineshoppingapp.model.Role;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface RoleRepository extends JpaRepository<Role, Integer> {
 }

@@ -1,5 +1,6 @@
 package edu.miu.cs425.onlineshoppingapp.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,5 +22,10 @@ public class Address {
     private String city;
     private String state;
     private String zipCode;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn
+    @JsonManagedReference
+    private User user;
 
 }
