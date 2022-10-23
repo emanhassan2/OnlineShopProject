@@ -19,4 +19,8 @@ public class Image {
     private Integer imageId;
     private String name;
     private String url;
+
+    @ManyToOne
+    @JoinColumn
+    private Product product;
 }

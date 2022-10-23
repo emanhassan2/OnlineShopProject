@@ -18,4 +18,8 @@ public class OrderLineItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer orderLineItemId;
     private Integer quantity;
+
+    @ManyToOne
+    @JoinColumn
+    private Product product;
 }

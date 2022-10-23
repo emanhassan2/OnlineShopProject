@@ -1,5 +1,6 @@
 package edu.miu.cs425.onlineshoppingapp.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,4 +22,15 @@ public class Review {
     private String comment;
     private Double rating;
     private LocalDate reviewDate;
+
+    @ManyToOne()
+    @JoinColumn
+    @JsonManagedReference
+    private User user;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn
+    @JsonManagedReference
+    private Product product;
+
 }

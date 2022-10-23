@@ -19,4 +19,9 @@ public class OrderStatus {
     private Integer orderStatusId;
     private String name;
     private String description;
+
+    // Bi-directional joinColumn on both side
+    @OneToOne
+    @JoinColumn
+    private Order order;
 }

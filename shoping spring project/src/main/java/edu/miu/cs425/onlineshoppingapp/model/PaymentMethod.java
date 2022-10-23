@@ -1,5 +1,6 @@
 package edu.miu.cs425.onlineshoppingapp.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,4 +22,9 @@ public class PaymentMethod {
     private String type;
     private String cardNumber;
     private String csv;
+
+    @ManyToOne
+    @JoinColumn //(name = "user_payment")
+    @JsonManagedReference
+    private User user;
 }

@@ -18,4 +18,12 @@ public class CartItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer cartItemId;
     private Integer quantity;
+
+    @OneToOne
+    @JoinColumn
+    private Product product;
+
+    @ManyToOne
+    @JoinColumn
+    private ShoppingCart shoppingCart;
 }
