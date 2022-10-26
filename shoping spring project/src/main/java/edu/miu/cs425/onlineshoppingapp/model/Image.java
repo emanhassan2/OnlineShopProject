@@ -1,9 +1,8 @@
 package edu.miu.cs425.onlineshoppingapp.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -12,6 +11,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@Builder
 @Table(name = "images")
 public class Image {
     @Id
@@ -22,5 +22,6 @@ public class Image {
 
     @ManyToOne
     @JoinColumn
+    @JsonManagedReference
     private Product product;
 }

@@ -1,10 +1,7 @@
 package edu.miu.cs425.onlineshoppingapp.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -16,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "products")
+@Builder
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,7 +26,7 @@ public class Product {
     private String description;
 
     @OneToMany(mappedBy = "product")
-
+    @JsonBackReference
     private List<Image> images;
 
     @OneToMany(mappedBy = "product")
