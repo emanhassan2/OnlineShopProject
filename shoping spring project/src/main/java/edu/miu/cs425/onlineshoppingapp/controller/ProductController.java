@@ -27,12 +27,6 @@ public class ProductController {
         var productsDto = products.stream().map(a -> modelMapper.map(a, ProductDto.class)).toList();
         return ResponseEntity.ok(productsDto);
     }
-/*
-    @GetMapping(value = {"search/{studentId}"}) // /eregistrar/api/student/1
-    public ResponseEntity<Student> getStudentById(@PathVariable Integer studentId) throws StudentNotFoundException {
-        var student = studentService.getStudentById(studentId);
-        return ResponseEntity.ok( student);
-    }*/
 
     @GetMapping(value = {"search/{productId}"})
     public Optional<Product> getProductById(@PathVariable Integer productId) {

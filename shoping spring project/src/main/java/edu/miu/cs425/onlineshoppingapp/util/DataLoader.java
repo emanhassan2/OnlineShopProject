@@ -12,6 +12,7 @@ import edu.miu.cs425.onlineshoppingapp.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -32,6 +33,9 @@ public class DataLoader implements ApplicationRunner {
     private ReviewRepository reviewRepository;
     @Autowired
     private ImageRepository imageRepository;
+
+    @Autowired
+    private PasswordEncoder encoder;
 
     private Faker faker = new Faker();
 
@@ -70,6 +74,10 @@ public class DataLoader implements ApplicationRunner {
             user.setFirstName(faker.name().firstName());
             user.setLastName(faker.name().lastName());
             user.setEmail(faker.internet().emailAddress());
+            user.setUsername(faker.name().username());
+            String pass = faker.internet().password();
+            user.setPassword(encoder.encode(pass));
+            user.setRawPassword(pass);
             user.setMiddleName(faker.name().nameWithMiddle());
 
             userRepository.save(user);

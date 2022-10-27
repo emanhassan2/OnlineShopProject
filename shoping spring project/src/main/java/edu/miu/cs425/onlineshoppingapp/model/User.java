@@ -35,6 +35,10 @@ public class User {
     @NotBlank(message = "email address can not be blanc, empty string or null")
     @Column(nullable = false)
     private String email;
+    private String username;
+    private String password;
+    private String rawPassword;
+
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable
