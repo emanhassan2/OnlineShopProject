@@ -21,6 +21,8 @@ import {
 
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faCartShopping, faHome, faUser} from "@fortawesome/free-solid-svg-icons";
 
 
 export default function TopBar({onProductSearch}) {
@@ -38,8 +40,7 @@ export default function TopBar({onProductSearch}) {
                 const result = await axios.post("http://localhost:8084/product/search", {searchString: searchString})
                 console.log(searchString);
                 onProductSearch(result.data);
-            }
-            catch (error) {
+            } catch (error) {
                 console.log(error);
                 alert(" user not found");
             }
@@ -111,7 +112,19 @@ export default function TopBar({onProductSearch}) {
                                onChange={onSearch}/>
                         <MDBBtn color='dark' onClick={onSearchClicked}>Search</MDBBtn>
                         <div style={{marginLeft: "5px"}}><MDBBtn color='dark'
-                                                                 onClick={onShoppingCartClicked}>Cart</MDBBtn></div>
+                                                                 onClick={onShoppingCartClicked}><FontAwesomeIcon
+                            icon={faCartShopping}/></MDBBtn></div>
+                        <div style={{marginLeft: "5px", padding: "0.375rem"}}>
+                            <MDBDropdown>
+                                <MDBDropdownToggle color='dark' tag='a' className='nav-link'>
+                                    <FontAwesomeIcon icon={faUser}/>
+                                </MDBDropdownToggle>
+                                <MDBDropdownMenu>
+                                    <MDBDropdownItem link>Username</MDBDropdownItem>
+                                    <MDBDropdownItem link>Sign out</MDBDropdownItem>
+                                </MDBDropdownMenu>
+                            </MDBDropdown>
+                        </div>
                         {/*//TODO*/}
                     </form>
 

@@ -30,9 +30,10 @@ function App() {
         (async function getData() {
             const result = await axios.post("http://localhost:8084/login", {username: username, password:password}).catch(error => {
                 console.log(error);
-                alert(" in correct user/password!")
+                alert(" incorrect user/password!")
             });
             console.log(result);
+            axios.defaults.headers.common['Authorization'] = "Bearer "+result.data;
             //TODO
             navigate("/product");
         })();
