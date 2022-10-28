@@ -33,4 +33,11 @@ public class ProductController {
         var product = productService.getProductById(productId)  ;
         return productService.getProductById(productId);
     }
+
+    @GetMapping(value = {"/search"})
+    public List<Product> searchProductByName(@RequestBody String name) {
+        var products = productService.searchProductByName(name);
+        System.out.println("name");
+        return products;
+    }
 }

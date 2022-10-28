@@ -12,6 +12,7 @@ target/
 .settings
 .springBeans
 .sts4-cache
+onlineShopProject-frontend/onlineshopping/node_modules
 
 ### IntelliJ IDEA ###
 .idea

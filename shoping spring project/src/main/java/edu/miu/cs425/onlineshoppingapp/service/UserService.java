@@ -4,5 +4,5 @@ import edu.miu.cs425.onlineshoppingapp.model.ShoppingCart;
 import edu.miu.cs425.onlineshoppingapp.model.User;
 
 public interface UserService {
-    public ShoppingCart creatShoppingCart(User user);
+    public ShoppingCart creatShoppingCart(User user, Integer cartItemId);
 }

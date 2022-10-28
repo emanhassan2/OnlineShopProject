@@ -9,4 +9,5 @@ public interface ProductService {
     public List<Product> getAllProduct();
     public Optional<Product> getProductById(Integer productId);
     public Optional<Product> getProductByName(String productName);
+    public List<Product> searchProductByName(String name);
 }
