@@ -25,17 +25,19 @@ function App() {
     const onChangePassword = (e) =>{
         setPassword(e.target.value);
     }
-    const  navigate = useNavigate();
+    const navigate = useNavigate();
     const onLoginClicked = () => {
         (async function getData() {
             const result = await axios.post("http://localhost:8084/login", {username: username, password:password}).catch(error => {
                 console.log(error);
                 alert(" in correct user/password!")
             });
-            navigate("/product");
             console.log(result);
+            //TODO
+            navigate("/product");
         })();
         console.log("log in");
+
     }
 
     return (

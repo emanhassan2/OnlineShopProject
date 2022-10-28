@@ -5,12 +5,11 @@ export default function ImageRendering (props){
     return(
         <div>
             <img
-
-                    // className="img1"
+                // className="img1"
                     src={image.url}
                     alt="Property1"
-                    width="280"
-                    height="170"
+                    width="300"
+                    height="400"
                 />
         </div>
     )
