@@ -1,21 +1,15 @@
 package edu.miu.cs425.onlineshoppingapp.util;
 
 import com.github.javafaker.Faker;
-import edu.miu.cs425.onlineshoppingapp.model.Image;
-import edu.miu.cs425.onlineshoppingapp.model.Product;
-import edu.miu.cs425.onlineshoppingapp.model.Review;
-import edu.miu.cs425.onlineshoppingapp.model.User;
-import edu.miu.cs425.onlineshoppingapp.repository.ImageRepository;
-import edu.miu.cs425.onlineshoppingapp.repository.ProductRepository;
-import edu.miu.cs425.onlineshoppingapp.repository.ReviewRepository;
-import edu.miu.cs425.onlineshoppingapp.repository.UserRepository;
+import edu.miu.cs425.onlineshoppingapp.model.*;
+import edu.miu.cs425.onlineshoppingapp.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
+import java.time.Year;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +27,8 @@ public class DataLoader implements ApplicationRunner {
     private ReviewRepository reviewRepository;
     @Autowired
     private ImageRepository imageRepository;
+    @Autowired
+    private ShoppingCartRepository shoppingCartRepository;
 
     @Autowired
     private PasswordEncoder encoder;
@@ -49,9 +45,6 @@ public class DataLoader implements ApplicationRunner {
         }
 
     }
-
-
-
     private void createReviews(List<User> users, List<Product> products) {
         for(int i = 0; i < 5; i++) {
             Review review = new Review();
@@ -108,6 +101,39 @@ public class DataLoader implements ApplicationRunner {
         }
         return products;
     }
+    private void creatNewProduct () {
+        Review r1 = Review.builder().build();
+        List<Review> reviews = new ArrayList<>();
+        Image i1 = Image.builder().build();
+        List<Image> images = new ArrayList<>();
+        images.add(i1);
+
+        //creat user
+        User u1 = User.builder().build();
+
+        Product p1 = Product.builder()
+                .name("Bow Embellished Open Back Sweater")
+                .category("Sweater")
+                .price(56.00)
+                .description("A cozy open back sweater with a touch of bling. This top is pairs perfectly with faux leather pants and booties for your next night out.")
+                .images(images)
+                .reviews(reviews)
+                .build();
+        CartItem c1 = CartItem.builder()
+                .quantity(2)
+                .product(p1)
+                .build();
+        List<CartItem> cartItems = new ArrayList<>();
+        cartItems.add(c1);
+        // creat shopping cart
+        ShoppingCart s1 = ShoppingCart.builder()
+                .createdDate(faker.date().past(300, TimeUnit.DAYS).toInstant().atZone(ZoneId.systemDefault()).toLocalDate())
+                .user(u1)
+                .cartItem(cartItems)
+                .build();
+    }
+
+
 
 
 }
