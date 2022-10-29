@@ -1,31 +1,42 @@
 package edu.miu.cs425.onlineshoppingapp.service.Imp;
 
+import edu.miu.cs425.onlineshoppingapp.dtos.CartItemDto;
 import edu.miu.cs425.onlineshoppingapp.model.CartItem;
 import edu.miu.cs425.onlineshoppingapp.model.Product;
 import edu.miu.cs425.onlineshoppingapp.model.ShoppingCart;
 import edu.miu.cs425.onlineshoppingapp.model.User;
+import edu.miu.cs425.onlineshoppingapp.repository.CartItemRepository;
 import edu.miu.cs425.onlineshoppingapp.repository.ShoppingCartRepository;
 import edu.miu.cs425.onlineshoppingapp.repository.UserRepository;
 import edu.miu.cs425.onlineshoppingapp.security.AwesomeUserDetails;
 import edu.miu.cs425.onlineshoppingapp.service.UserService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class UserServiceImp implements UserService {
     @Autowired
     private UserRepository userRepository;
 
     @Autowired
     private AuthenticationManager authenticationManager;
+
+    @Autowired
+    private ModelMapper modelMapper;
+
+    @Autowired
+    private CartItemRepository cartItemRepository;
 
 //    private final User user = ((AwesomeUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
 
@@ -43,26 +54,37 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public CartItem addCartItemToUseShoppingCart(CartItem cartItem) {
+    public CartItem addCartItemToUseShoppingCart(CartItemDto cartItem1) {
+        CartItem cartItem = modelMapper.map(cartItem1, CartItem.class);
+        if(cartItem != null){
+            CartItem foundCartItem = cartItemRepository.findByProductProductId(cartItem.getProduct().getProductId());
+            if(foundCartItem != null){
+                int quantity = cartItem.getQuantity();
+                cartItem = foundCartItem;
+                cartItem.setQuantity(foundCartItem.getQuantity() + quantity);
+            }
+        }
          User user = ((AwesomeUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
 
 
-        ShoppingCart shoppingCart = shoppingCartRepository.findByUser(user).orElseThrow(() -> new RuntimeException("shopping cart 404"));
+        ShoppingCart shoppingCart = shoppingCartRepository.findByUserUserId(user.getUserId()).orElseThrow(() -> new RuntimeException("shopping cart 404"));
 
        List<CartItem> cartItems = shoppingCart.getCartItem();
         if(!cartItems.contains(cartItem)) {
             cartItems.add(cartItem);
+            cartItem.setShoppingCart(shoppingCart);
             shoppingCart.setCartItem(cartItems);
         }
         else {
 
             for(int i = 0; i < cartItems.size(); i++) {
-                if(cartItems.get(i) == cartItem) {
+                if(cartItems.get(i).equals(cartItem)) {
                     CartItem c = cartItems.get(i);
-                    c.setQuantity(c.getQuantity()+1);
+                    c.setQuantity(c.getQuantity());
                 }
             }
         }
+        shoppingCartRepository.save(shoppingCart);
         return cartItem;
     }
 
@@ -79,7 +101,7 @@ public class UserServiceImp implements UserService {
     public void creatOrder() {
         User user = ((AwesomeUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
 
-       Optional<ShoppingCart> shoppingCart = shoppingCartRepository.findByUser(user);
+       Optional<ShoppingCart> shoppingCart = shoppingCartRepository.findByUserUserId(user.getUserId());
        if(shoppingCart.isEmpty()) {
            throw new RuntimeException("user doesn't have shopping cart!");
        }

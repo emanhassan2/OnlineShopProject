@@ -9,6 +9,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.Year;
 import java.time.ZoneId;
@@ -17,6 +18,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 @Component
+@Transactional
 public class DataLoader implements ApplicationRunner {
     @Autowired
     private ProductRepository productRepository;
@@ -109,7 +111,17 @@ public class DataLoader implements ApplicationRunner {
         List<Review> reviews = new ArrayList<>();
 
         //creat user
-        User u1 = User.builder().build();
+        User u1 = new User();
+        u1.setFirstName(faker.name().firstName());
+        u1.setLastName(faker.name().lastName());
+        u1.setEmail(faker.internet().emailAddress());
+        u1.setUsername(faker.name().username());
+        String pass = faker.internet().password();
+        u1.setPassword(encoder.encode(pass));
+        u1.setRawPassword(pass);
+        u1.setMiddleName(faker.name().nameWithMiddle());
+
+        userRepository.save(u1);
 
         Product p1 = Product.builder()
                 .name("Bow Embellished Open Back Sweater")
@@ -289,6 +301,8 @@ public class DataLoader implements ApplicationRunner {
                 .user(u1)
                 .cartItem(cartItems)
                 .build();
+
+        shoppingCartRepository.save(s1);
 
         // creat order
         LocalDate date1 = LocalDate.now();

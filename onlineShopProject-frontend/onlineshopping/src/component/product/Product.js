@@ -18,7 +18,9 @@ export default function Product (props) {
             console.log(product);
             try {
                 const body = {
-                    product,
+                    product:{
+                        productId: product.id
+                    },
                     quantity: 1
                 }
                 const result = await axios.post("http://localhost:8084/user/shoppingCart", body)

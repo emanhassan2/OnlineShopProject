@@ -7,6 +7,7 @@ import org.hibernate.annotations.Fetch;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -41,7 +42,7 @@ public class User {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable
     @JsonManagedReference
-    List<Role> roles;
+    List<Role> roles = new ArrayList<>();
 
     @OneToMany(mappedBy = "user")
     @JsonBackReference

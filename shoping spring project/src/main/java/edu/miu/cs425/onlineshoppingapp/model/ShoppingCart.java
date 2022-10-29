@@ -21,11 +21,11 @@ public class ShoppingCart {
     @Column(nullable = false)
     private LocalDate createdDate;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JsonManagedReference
     @JoinColumn
     private User user;
 
-    @OneToMany(mappedBy = "shoppingCart")
+    @OneToMany(mappedBy = "shoppingCart", cascade = CascadeType.ALL)
     private List<CartItem> cartItem;
 }

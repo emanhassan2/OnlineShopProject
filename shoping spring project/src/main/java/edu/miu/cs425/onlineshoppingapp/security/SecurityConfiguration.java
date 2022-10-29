@@ -49,7 +49,8 @@ public class SecurityConfiguration {
                 .antMatchers(HttpMethod.POST, "/login/**").permitAll()
 //                .antMatchers("/products/**").hasAnyAuthority("ADMIN")
 //                .antMatchers("/products/**").hasAnyRole( "USER", "ADMIN")
-                .antMatchers("/**").hasRole("ADMIN")
+//                .antMatchers("/**").hasRole("ADMIN")
+                .antMatchers("/**").permitAll()
 //
                 //               .antMatchers(HttpMethod.GET,"/products").hasAuthority("GOLD")
                 .anyRequest()

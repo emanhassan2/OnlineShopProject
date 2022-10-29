@@ -1,5 +1,6 @@
 package edu.miu.cs425.onlineshoppingapp.controller;
 
+import edu.miu.cs425.onlineshoppingapp.dtos.CartItemDto;
 import edu.miu.cs425.onlineshoppingapp.model.CartItem;
 import edu.miu.cs425.onlineshoppingapp.model.ShoppingCart;
 import edu.miu.cs425.onlineshoppingapp.model.User;
@@ -13,8 +14,8 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     @Autowired
     private UserService userService;
-    @PostMapping("/shoppingCart")
-    public void addCartItemToShoppingCart(@RequestBody User user, CartItem cartItem) {
+    @PostMapping(value = "/shoppingCart", consumes = {"application/json;charset=UTF-8"})
+    public void addCartItemToShoppingCart(@RequestBody CartItemDto cartItem) {
         userService.addCartItemToUseShoppingCart(cartItem);
     }
 

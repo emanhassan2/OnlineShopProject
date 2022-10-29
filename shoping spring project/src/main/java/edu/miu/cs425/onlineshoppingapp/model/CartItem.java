@@ -11,6 +11,7 @@ import javax.persistence.*;
 @Entity
 @Builder
 @Table(name = "cart_items")
+@EqualsAndHashCode
 public class CartItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

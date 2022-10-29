@@ -35,6 +35,7 @@ public class Product {
     List<Review> reviews;
 
     @OneToOne(mappedBy = "product")
+    @JsonBackReference
     private CartItem cartItem;
 
     @OneToMany(mappedBy = "product")
