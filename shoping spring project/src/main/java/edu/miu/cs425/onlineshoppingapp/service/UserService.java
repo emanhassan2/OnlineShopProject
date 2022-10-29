@@ -6,5 +6,7 @@ import edu.miu.cs425.onlineshoppingapp.model.User;
 
 public interface UserService {
     public ShoppingCart creatShoppingCart(User user, Integer cartItemId);
-    public CartItem addCartItemToUseShoppingCart(User user, CartItem cartItem);
+    public CartItem addCartItemToUseShoppingCart( CartItem cartItem);
+    public ShoppingCart getUserShoppingCart();
+    public void creatOrder();
 }

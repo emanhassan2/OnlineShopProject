@@ -18,11 +18,13 @@ public class AwesomeUserDetails implements UserDetails {
     @JsonIgnore
     private String password;
     private List<Role> roles;
+    private User user;
 
     public AwesomeUserDetails(User user) {
         this.email = user.getEmail();
         this.password = user.getPassword();
         this.roles = user.getRoles();
+        this.user = user;
     }
 
     @Override
@@ -31,6 +33,10 @@ public class AwesomeUserDetails implements UserDetails {
                 .map(role -> new SimpleGrantedAuthority("ROLE_"+role.getRole().toUpperCase(Locale.ROOT)))
                 .collect(Collectors.toList());
         return result;
+    }
+
+    public User getUser() {
+        return user;
     }
 
     @Override

@@ -22,7 +22,7 @@ export default function Product (props) {
                     quantity: 1
                 }
                 const result = await axios.post("http://localhost:8084/user/shoppingCart", body)
-                console.log(result);
+                // console.log(result);
                 alert(`Product ${product.name} added to you cart successfully`);
             } catch (error) {
                 console.log(error);

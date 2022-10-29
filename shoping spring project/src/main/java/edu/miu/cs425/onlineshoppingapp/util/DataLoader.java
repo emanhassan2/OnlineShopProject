@@ -9,6 +9,7 @@ import org.springframework.boot.ApplicationRunner;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
 import java.time.Year;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -287,6 +288,19 @@ public class DataLoader implements ApplicationRunner {
                 .createdDate(faker.date().past(300, TimeUnit.DAYS).toInstant().atZone(ZoneId.systemDefault()).toLocalDate())
                 .user(u1)
                 .cartItem(cartItems)
+                .build();
+
+        // creat order
+        LocalDate date1 = LocalDate.now();
+        List<CartItem> cartItems1 = s1.getCartItem();
+//        int total
+        for(int i = 0; i < cartItems1.size(); i++) {
+
+        }
+        Order o1 = Order.builder()
+                .status("pending")
+                .createdDate(date1)
+
                 .build();
     }
 

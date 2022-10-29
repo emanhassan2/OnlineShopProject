@@ -1,5 +1,6 @@
 package edu.miu.cs425.onlineshoppingapp.controller;
 
+import edu.miu.cs425.onlineshoppingapp.dtos.LoginResponse;
 import edu.miu.cs425.onlineshoppingapp.model.LoginRequest;
 import edu.miu.cs425.onlineshoppingapp.service.Imp.LoginService;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +16,7 @@ public class LoginController {
     }
 
     @PostMapping("")
-    public String login(@RequestBody LoginRequest loginRequest) {
+    public LoginResponse login(@RequestBody LoginRequest loginRequest) {
         return loginService.login(loginRequest);
     }
 
