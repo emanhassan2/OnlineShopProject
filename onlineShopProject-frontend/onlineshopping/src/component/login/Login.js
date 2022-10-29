@@ -33,7 +33,7 @@ function App() {
                 alert(" incorrect user/password!")
             });
             console.log(result);
-            axios.defaults.headers.common['Authorization'] = "Bearer "+result.data;
+            axios.defaults.headers.common['Authorization'] = "Bearer "+result.data.jwt;
             //TODO
             navigate("/product");
         })();
