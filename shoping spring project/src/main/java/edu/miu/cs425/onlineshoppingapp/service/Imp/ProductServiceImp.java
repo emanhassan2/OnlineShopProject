@@ -31,4 +31,9 @@ public class ProductServiceImp implements ProductService {
     public Optional<Product> getProductByName(String productName) {
         return Optional.empty();
     }
+
+    @Override
+    public List<Product> searchProductByName(String name) {
+        return productRepository.findByNameContaining(name);
+    }
 }
