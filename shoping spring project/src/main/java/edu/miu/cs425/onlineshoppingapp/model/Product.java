@@ -22,6 +22,7 @@ public class Product {
     @Column(nullable = false)
     private String name;
     private String category;
+    private Integer quantityInStock;
     private Double price;
     private String description;
 
@@ -34,6 +35,7 @@ public class Product {
     List<Review> reviews;
 
     @OneToOne(mappedBy = "product")
+    @JsonBackReference
     private CartItem cartItem;
 
     @OneToMany(mappedBy = "product")

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     MDBContainer,
     MDBNavbar,
@@ -25,15 +25,23 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCartShopping, faHome, faUser} from "@fortawesome/free-solid-svg-icons";
 
 
-export default function TopBar({onProductSearch}) {
+export default function TopBar({onProductSearch, data}) {
     const [showBasic, setShowBasic] = useState(false);
     const [searchString, setSearchString] = useState("");
     const onSearch = (e) => {
         setSearchString(e.target.value);
     }
-
-
     const onSearchClicked = function (e) {
+        e.preventDefault();
+        const newData=data.filter(prod => prod.name.toUpperCase().includes(searchString.toUpperCase()));
+        onProductSearch(newData);}
+
+
+    // useEffect( () => {
+    //     onSearchClicked();
+    // },[searchString])
+
+    /*const onSearchClicked = function (e) {
         e.preventDefault();
         (async function getData() {
             try {
@@ -46,7 +54,7 @@ export default function TopBar({onProductSearch}) {
             }
 
         })();
-    }
+    }*/
 
     const navigate = useNavigate();
     const onShoppingCartClicked = function () {
@@ -125,7 +133,7 @@ export default function TopBar({onProductSearch}) {
                                 </MDBDropdownMenu>
                             </MDBDropdown>
                         </div>
-                        {/*//TODO*/}
+
                     </form>
 
                 </MDBCollapse>

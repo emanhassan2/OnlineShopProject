@@ -1,6 +1,8 @@
 package edu.miu.cs425.onlineshoppingapp.service.Imp;
 
+import edu.miu.cs425.onlineshoppingapp.dtos.LoginResponse;
 import edu.miu.cs425.onlineshoppingapp.model.LoginRequest;
+import edu.miu.cs425.onlineshoppingapp.security.AwesomeUserDetails;
 import edu.miu.cs425.onlineshoppingapp.security.JwtHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,13 +18,14 @@ public class LoginService {
     @Autowired
     JwtHelper jwtHelper;
 
-    public String login(LoginRequest loginRequest) {
+    public LoginResponse login(LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword())
         );
         SecurityContextHolder.getContext().setAuthentication(authentication);
         //TODO
         String jwt = jwtHelper.generateToken(loginRequest.getUsername());
-        return jwt;
+        AwesomeUserDetails userDetails = (AwesomeUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        return new LoginResponse(jwt, userDetails.getUser());
     }
 }
